@@ -9,7 +9,7 @@ def hello_world():
 @app.route('/skull', methods=['GET'])
 def skull():
     text = 'Hi! This is the BACKEND SKULL! 💀 '
-    
+
     text = text +'<br/>Database URL:' + db.engine.url.database
     if db.engine.url.host:
         text = text +'<br/>Database host:' + db.engine.url.host
@@ -25,8 +25,9 @@ def skull():
 @app.route('/accounts', methods=['POST'])
 def create_account():
     name = request.json['name']
+    country = request.json['country']
     currency = request.json['currency']
-    account = Account(name, currency)
+    account = Account(name, country, currency)
     db.session.add(account)
     db.session.commit()
     return format_account(account)
@@ -48,6 +49,9 @@ def update_account(id):
     db.session.commit()
     return format_account(account)
 
+
+
+# Test 1 added
 @app.route('/accounts/<int:id>', methods=['DELETE'])
 def delete_account(id):
     account = Account.query.get(id)
@@ -55,10 +59,12 @@ def delete_account(id):
     db.session.commit()
     return format_account(account)
 
+# Test 2 added
 def format_account(account):
     return {
         'id': account.id,
         'name': account.name,
+        'country': account.country,
         'account_number': account.account_number,
         'balance': account.balance,
         'currency': account.currency,

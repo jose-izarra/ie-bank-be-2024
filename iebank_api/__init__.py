@@ -1,6 +1,7 @@
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from flask_cors import CORS
+from sqlalchemy import text
 import os
 
 app = Flask(__name__)
@@ -18,9 +19,16 @@ elif os.getenv('ENV') == 'ghci':
 
 db = SQLAlchemy(app)
 
+# Create the database tables
 from iebank_api.models import Account
 
 with app.app_context():
+    # We need to add the db column country to the account table
+    """
+        query = text("ALTER TABLE account ADD COLUMN country TEXT")
+        db.session.execute(query)
+        db.session.commit()
+    """
     db.create_all()
 CORS(app)
 
