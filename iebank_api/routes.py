@@ -49,6 +49,9 @@ def update_account(id):
     db.session.commit()
     return format_account(account)
 
+
+
+# Test 1 added
 @app.route('/accounts/<int:id>', methods=['DELETE'])
 def delete_account(id):
     account = Account.query.get(id)
@@ -56,6 +59,7 @@ def delete_account(id):
     db.session.commit()
     return format_account(account)
 
+# Test 2 added
 def format_account(account):
     return {
         'id': account.id,
