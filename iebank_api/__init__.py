@@ -17,9 +17,11 @@ if os.getenv('ENV') == 'local':
 elif os.getenv('ENV') == 'dev':
     print("Running in development mode")
     app.config.from_object('config.DevelopmentConfig')
+    print("SQLALCHEMY_DATABASE_URI: ", app.config['SQLALCHEMY_DATABASE_URI'])
 elif os.getenv('ENV') == 'ghci':
     print("Running in github mode")
     app.config.from_object('config.GithubCIConfig')
+    print("SQLALCHEMY_DATABASE_URI: ", app.config['SQLALCHEMY_DATABASE_URI'])
 
 db = SQLAlchemy(app)
 

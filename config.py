@@ -20,3 +20,4 @@ class DevelopmentConfig(Config):
     dbname=os.getenv('DBNAME')
     )
     DEBUG = True
+    print("SQLALCHEMY_DATABASE_URI in DevelopmentConfig: ", SQLALCHEMY_DATABASE_URI)
