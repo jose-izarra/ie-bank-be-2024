@@ -56,7 +56,7 @@ jobs:
     needs: build
     environment:
       name: 'Development'
-      url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
+      url: ${{ steps.deploy-to-webapp-dev.outputs.webapp-url }}
 
     steps:
     - name: Download artifact from build job
@@ -71,7 +71,7 @@ jobs:
 
     - name: 'Deploy to Azure Web App Development'
       uses: azure/webapps-deploy@v3
-      id: deploy-to-webapp
+      id: deploy-to-webapp-dev
       with:
         app-name: ${{ env.BACKEND_WEBAPP_DEV }}
         package: .
@@ -82,7 +82,7 @@ jobs:
     needs: build
     environment:
       name: 'UAT'
-      url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
+      url: ${{ steps.deploy-to-webapp-uat.outputs.webapp-url }}
 
     steps:
     - name: Download artifact from build job
@@ -97,7 +97,7 @@ jobs:
 
     - name: 'Deploy to Azure Web App UAT'
       uses: azure/webapps-deploy@v3
-      id: deploy-to-webapp
+      id: deploy-to-webapp-uat
       with:
-        app-name: ${{ env.BACKEND_WEBAPP_DEV }}
+        app-name: ${{ env.BACKEND_WEBAPP_UAT }}
         package: .
