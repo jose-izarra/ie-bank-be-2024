@@ -7,7 +7,6 @@ import os
 app = Flask(__name__)
 
 # Select environment based on the ENV environment variable
-os.environ['ENV'] = 'dev'
 print("ENV: ", os.getenv('ENV'))
 
 if os.getenv('ENV') == 'local':
@@ -22,6 +21,8 @@ elif os.getenv('ENV') == 'ghci':
     print("Running in github mode")
     app.config.from_object('config.GithubCIConfig')
     print("SQLALCHEMY_DATABASE_URI: ", app.config['SQLALCHEMY_DATABASE_URI'])
+
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///local.db'
 
 db = SQLAlchemy(app)
 
