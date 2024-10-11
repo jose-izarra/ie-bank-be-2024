@@ -7,7 +7,7 @@ import os
 app = Flask(__name__)
 
 # Select environment based on the ENV environment variable
-# os.environ['ENV'] = 'local'
+os.environ['ENV'] = 'dev'
 print("ENV: ", os.getenv('ENV'))
 
 if os.getenv('ENV') == 'local':
