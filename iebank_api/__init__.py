@@ -7,9 +7,13 @@ import os
 app = Flask(__name__)
 
 # Select environment based on the ENV environment variable
+# os.environ['ENV'] = 'local'
+print("ENV: ", os.getenv('ENV'))
+
 if os.getenv('ENV') == 'local':
     print("Running in local mode")
     app.config.from_object('config.LocalConfig')
+    print("SQLALCHEMY_DATABASE_URI: ", app.config['SQLALCHEMY_DATABASE_URI'])
 elif os.getenv('ENV') == 'dev':
     print("Running in development mode")
     app.config.from_object('config.DevelopmentConfig')
@@ -18,6 +22,7 @@ elif os.getenv('ENV') == 'ghci':
     app.config.from_object('config.GithubCIConfig')
 
 db = SQLAlchemy(app)
+
 
 # Create the database tables
 from iebank_api.models import Account
